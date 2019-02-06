@@ -24,7 +24,6 @@ public class CodeGeneratorConfig {
 	protected static String CONTROLLER_PACKAGE;
 	/** 子包签名包名 */
 	protected static String SIGN_PACKAGE_NAME;
-
 	/** 生成的 entity实体存放路径 */
 	protected static String PACKAGE_PATH_ENTITY;
 	/** 生成的dao存放路径 */
@@ -43,10 +42,16 @@ public class CodeGeneratorConfig {
 	protected static Boolean NOT_GEN_SERVICE;
 	/** 不生成批量方法，批量插入 */
 	protected static Boolean NOT_GEN_BATCH;
-
 	/** 模板注释中 @author */
 	protected static String AUTHOR;
 	/** 模板注释中 @date */
 	protected static String DATE;
-	
+	/** 是否生生jdbc factory类 */
+	protected static Boolean GEN_JDBC_TEMPLATE_FACTORY;
+	/** 是否生生jdbc factory类包路径 */
+	protected static String GEN_JDBC_TEMPLATE_FACTORY_PACKAGE;
+	/** 是否生成accid查询列表数据信息*/
+	protected static Boolean GEN_QUERY_BY_ACCID;
+
+
 }

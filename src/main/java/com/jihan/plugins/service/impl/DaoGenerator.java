@@ -20,7 +20,7 @@ public class DaoGenerator extends CodeGeneratorManager implements CodeGenerator 
 	public void genCode(String tableName, String customEntityName) {
 
 		Configuration cfg = getFreemarkerConfiguration();
-		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.underScoreCase2CamelCase(tableName) : customEntityName;
+		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.toUpperCaseFirstOne(StringUtils.underScoreCase2CamelCase(tableName)): customEntityName;
 		// 设置文件名称
 		String daoFileName;
 		String daoImplFileName;
@@ -39,7 +39,11 @@ public class DaoGenerator extends CodeGeneratorManager implements CodeGenerator 
 			if (!serviceFile.getParentFile().exists()) {
 				serviceFile.getParentFile().mkdirs();
 			}
-			cfg.getTemplate("dao.ftl").process(data, new FileWriter(serviceFile));
+			if (GEN_JDBC_TEMPLATE_FACTORY){
+				cfg.getTemplate("dao-factory.ftl").process(data, new FileWriter(serviceFile));
+			}else {
+				cfg.getTemplate("dao.ftl").process(data, new FileWriter(serviceFile));
+			}
 			logger.info(tableCamelName + "Dao.java 生成成功!");
 
 			// 创建 Service 接口的实现类
@@ -48,7 +52,13 @@ public class DaoGenerator extends CodeGeneratorManager implements CodeGenerator 
 			if (!serviceImplFile.getParentFile().exists()) {
 				serviceImplFile.getParentFile().mkdirs();
 			}
-			cfg.getTemplate("dao-impl.ftl").process(data, new FileWriter(serviceImplFile));
+			if (GEN_JDBC_TEMPLATE_FACTORY){
+				data.put("jdbcTemplateFactoryPackage", GEN_JDBC_TEMPLATE_FACTORY_PACKAGE);
+				cfg.getTemplate("dao-impl-factory.ftl").process(data, new FileWriter(serviceImplFile));
+			}else {
+				cfg.getTemplate("dao-impl.ftl").process(data, new FileWriter(serviceImplFile));
+
+			}
 			logger.info(tableCamelName + "DaoImpl.java 生成成功!");
 
 		} catch (Exception e) {
@@ -70,6 +80,7 @@ public class DaoGenerator extends CodeGeneratorManager implements CodeGenerator 
 		data.put("entityNameFirstLowerCamel", StringUtils.toLowerCaseFirstOne(tableCamelName));
 		data.put("basePackage", BASE_PACKAGE);
 		data.put("isNeedGeneBatch", !NOT_GEN_BATCH);
+		data.put("isNeedGenQueryByAccId", GEN_QUERY_BY_ACCID);
 		return data;
 	}
 

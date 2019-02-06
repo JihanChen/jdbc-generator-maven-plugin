@@ -141,6 +141,16 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 		AUTHOR = prop.getProperty("author");
 		String dateFormat = "".equals(prop.getProperty("date-format")) ? "yyyy/MM/dd" : prop.getProperty("date-format");
 		DATE = new SimpleDateFormat(dateFormat).format(new Date());
+
+		GEN_JDBC_TEMPLATE_FACTORY = "".equals(prop.getProperty("gen.jdbc.template.factory")) ? false :  Boolean.valueOf(prop.getProperty("gen.jdbc.template.factory"));
+		GEN_JDBC_TEMPLATE_FACTORY_PACKAGE = prop.getProperty("gen.jdbc.template.factory.package");
+		if (GEN_JDBC_TEMPLATE_FACTORY){
+			if ("".equals(GEN_JDBC_TEMPLATE_FACTORY_PACKAGE)){
+				throw new RuntimeException("请配置gen.jdbc.template.factory.package路径地址！或将gen.jdbc.template.factory设置为false！");
+			}
+		}
+		GEN_QUERY_BY_ACCID = "".equals(prop.getProperty("gen.query.by.accid")) ? false :  Boolean.valueOf(prop.getProperty("gen.query.by.accid"));
+
 	}
 	
 	/**

@@ -23,7 +23,7 @@ public class ServiceGenerator extends CodeGeneratorManager implements CodeGenera
 		}
 		Configuration cfg = getFreemarkerConfiguration();
 		// 设置文件名称
-		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.underScoreCase2CamelCase(tableName) : customEntityName;
+		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ?  StringUtils.toUpperCaseFirstOne(StringUtils.underScoreCase2CamelCase(tableName)) : customEntityName;
 		String serviceFileName;
 		String serviceImplFileName;
 		if (StringUtils.isNullOrEmpty(SIGN_PACKAGE_NAME)){
