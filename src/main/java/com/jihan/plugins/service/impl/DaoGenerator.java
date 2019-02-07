@@ -20,7 +20,7 @@ public class DaoGenerator extends CodeGeneratorManager implements CodeGenerator 
 	public void genCode(String tableName, String customEntityName) {
 
 		Configuration cfg = getFreemarkerConfiguration();
-		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.underScoreCase2CamelCase(tableName) : customEntityName;
+		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.toUpperCaseFirstOne(StringUtils.underScoreCase2CamelCase(tableName)): customEntityName;
 		// 设置文件名称
 		String daoFileName;
 		String daoImplFileName;

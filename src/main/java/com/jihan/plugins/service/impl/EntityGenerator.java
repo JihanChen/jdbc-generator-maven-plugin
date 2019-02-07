@@ -42,7 +42,7 @@ public class EntityGenerator extends CodeGeneratorManager implements CodeGenerat
 		Configuration cfg = getFreemarkerConfiguration();
 
 		// 设置文件名称
-		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.underScoreCase2CamelCase(tableName) : customEntityName;
+		String tableCamelName = StringUtils.isNullOrEmpty(customEntityName) ? StringUtils.toUpperCaseFirstOne(StringUtils.underScoreCase2CamelCase(tableName)) : customEntityName;
 		String fileName;
 		if (StringUtils.isNullOrEmpty(SIGN_PACKAGE_NAME)){
 			fileName = PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_ENTITY + tableCamelName + "DO.java";
