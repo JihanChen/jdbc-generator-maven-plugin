@@ -22,6 +22,7 @@ import ${jdbcTemplateFactoryPackage}.JdbcTemplateFactory;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import java.sql.SQLException;
 import java.util.Map;
+import ${jdbcTemplateFactoryPackage}.CustomerJdbcTemplate;
 </#if>
 <#-- 定义主键key字段 -->
 <#assign columnKey = "id">
@@ -188,7 +189,7 @@ public class ${tableCamelName}DaoImpl implements ${tableCamelName}Dao{
             if (isNeedGeneratePriKey){
               // 自动生成主键，前提mysql设置主键自增
               GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
-              jdbcTemplateFactory.getJdbctemplate(accId).batchUpdate(sql, new BatchPreparedStatementSetter() {
+             ((CustomerJdbcTemplate)jdbcTemplateFactory.getJdbctemplate(accId)).batchUpdate(sql, new BatchPreparedStatementSetter() {
               @Override
               public void setValues(PreparedStatement ps, int i) throws SQLException {
               <#list columnList as x>
