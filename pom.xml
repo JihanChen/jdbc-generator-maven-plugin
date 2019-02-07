@@ -3,7 +3,6 @@
   <groupId>com.jihan</groupId>
   <artifactId>jdbc-generator-maven-plugin</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-
 	<packaging>maven-plugin</packaging>
 
 	<properties>
