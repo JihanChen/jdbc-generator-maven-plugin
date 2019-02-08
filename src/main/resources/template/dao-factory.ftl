@@ -17,10 +17,9 @@ public interface ${tableCamelName}Dao {
     /**
      * 查询所有
      * @param accId
-     * @param entity
      * @return
      */
-    List<${entityName}> list(String accId,${entityName} entity);
+    List<${entityName}> list(String accId);
 
     /**
     * 添加

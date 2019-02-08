@@ -16,10 +16,9 @@ public interface ${tableCamelName}Dao {
 
     /**
      * 查询所有
-     * @param entity
      * @return
      */
-    List<${entityName}> list(${entityName} entity);
+    List<${entityName}> list();
 
     /**
     * 添加

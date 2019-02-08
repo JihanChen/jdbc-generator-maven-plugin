@@ -49,11 +49,10 @@ public class ${tableCamelName}DaoImpl implements ${tableCamelName}Dao{
 
     /**
      * 查询所有
-     * @param entity
      * @return
      */
     @Override
-    public List<${entityName}> list(${entityName} entity){
+    public List<${entityName}> list(){
         final String sql = "SELECT * FROM  ${tableName}";
         return jdbcTemplate.query(sql,new BeanPropertyRowMapper<>(${entityName}.class));
     }
