@@ -35,15 +35,27 @@ public class ${entityName} {
         /**
         * ${x.columnComment}
         */
-    <#if x.dataType == "bigint" || x.dataType == "int" >
+    <#if x.dataType == "bigint">
         private Long ${x.columnCamelName};
+    <#elseif x.dataType == "int" >
+        <#if x.columnKey != "" && x.columnKey == "PRI">
+        private Long ${x.columnCamelName};
+        <#else>
+        private Integer ${x.columnCamelName};
+        </#if>
     <#elseif x.dataType == "char" || x.dataType == "varchar" || x.dataType == "text" || x.dataType == "tinytext" || x.dataType == "mediumtext" || x.dataType == "longtext" || x.dataType == "enum" >
         private String ${x.columnCamelName};
-    <#elseif  x.dataType == "integer" || x.dataType == "smallint" || x.dataType == "mediumint" || x.dataType == "tinyint">
+    <#elseif  x.dataType == "integer" || x.dataType == "smallint" || x.dataType == "mediumint" >
         private Integer ${x.columnCamelName};
+    <#elseif  x.dataType == "tinyint" >
+        <#if x.columnType == "tinyint(1)">
+        private Boolean ${x.columnCamelName};
+        <#else>
+        private Integer ${x.columnCamelName};
+        </#if>
     <#elseif x.dataType == "blob" || x.dataType == "tinyblob" || x.dataType == "mediumblob" || x.dataType == "longblob" >
         private byte[] ${x.columnCamelName};
-    <#elseif x.dataType == "timestamp" || x.dataType == "datetime" || x.dataType == "date" >
+    <#elseif x.dataType == "timestamp" || x.dataType == "datetime" || x.dataType == "date" || x.dataType == "time">
         private Date ${x.columnCamelName};
     <#elseif x.dataType == "double" >
         private Double ${x.columnCamelName};

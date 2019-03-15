@@ -9,6 +9,11 @@ public class ColumnBean {
      * 主键时为:PRI
      */
     private String columnKey;
+
+    /**
+     * 字段类型
+     */
+    private String columnType;
     /**
      * 字段名
      */
@@ -88,6 +93,15 @@ public class ColumnBean {
     public ColumnBean setDataType(String dataType) {
         this.dataType = dataType;
         return this;
+    }
+
+    public ColumnBean setColumnType(String columnType) {
+        this.columnType = columnType;
+        return this;
+    }
+
+    public String getColumnType() {
+        return columnType;
     }
 
     public String getCharacterMaximumLength() {

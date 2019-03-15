@@ -24,6 +24,7 @@ public class ColumnListHandler implements ResultSetHandler<List<ColumnBean>> {
             bean.setTableName(StringUtils.underScoreCase2CamelCase(rs.getString("table_name")));
             bean.setColumnKey(rs.getString("column_key"));
             bean.setColumnName(rs.getString("column_name"));
+            bean.setColumnType(rs.getString("column_type"));
             bean.setIsNullable(rs.getString("is_nullable"));
             bean.setDataType(rs.getString("data_type"));
             bean.setCharacterMaximumLength(rs.getString("character_maximum_length"));

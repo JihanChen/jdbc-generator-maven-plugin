@@ -37,7 +37,7 @@ public final class CodeGenDao {
      * @throws SQLException
      */
     public List<ColumnBean> selectColumns(String schemaName , String tableName) throws SQLException {
-        String sql = "SELECT table_name ,column_Key  ," +
+        String sql = "SELECT table_name ,column_Key  ,column_type," +
                 "column_name ,is_nullable ," +
                 "data_type , character_maximum_length , " +
                 "column_comment  FROM information_schema.COLUMNS" +
