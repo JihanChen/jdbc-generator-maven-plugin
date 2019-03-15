@@ -10,6 +10,7 @@ import org.apache.maven.plugins.annotations.Mojo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Objects;
 @Mojo(name = "generate", threadSafe = true)
 public class JdbcGeneratorMojo extends AbstractMojo {
@@ -38,7 +39,7 @@ public class JdbcGeneratorMojo extends AbstractMojo {
                     codeGeneratorManager.genCodeByTableName(schema,sourceStrArray[0]);
                 }
             }else {
-                codeGeneratorManager.genCodeByTableName(schema,sourceStrArray);
+                codeGeneratorManager.genCodeByTableName(schema, Arrays.asList(sourceStrArray));
             }
             System.out.println("\n正在处理...\n");
         } catch (IOException e) {

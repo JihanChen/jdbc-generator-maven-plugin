@@ -2,6 +2,7 @@ package com.jihan.plugins.dao;
 
 
 import com.jihan.plugins.entity.ColumnBean;
+import com.jihan.plugins.entity.TableBean;
 import com.jihan.plugins.util.DBUtils;
 import org.apache.commons.dbutils.QueryRunner;
 
@@ -46,4 +47,15 @@ public final class CodeGenDao {
         return qx.query(sql, new ColumnListHandler(), params);
     }
 
+    /**
+     * 获取数据库所有表信息
+     * @param schemaName
+     * @return
+     * @throws SQLException
+     */
+    public List<TableBean> selectTables(String schemaName) throws SQLException {
+        String sql = "SELECT table_name, table_type , ENGINE,table_collation,table_comment, create_options FROM information_schema.TABLES WHERE table_schema=?";
+        Object[] params = new Object[]{schemaName};
+        return qx.query(sql, new TableListHandler(), params);
+    }
 }

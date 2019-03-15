@@ -1,5 +1,7 @@
 package com.jihan.plugins.config;
 
+import com.jihan.plugins.dao.CodeGenDao;
+import com.jihan.plugins.entity.TableBean;
 import com.jihan.plugins.service.impl.ControllerGenerator;
 import com.jihan.plugins.service.impl.DaoGenerator;
 import com.jihan.plugins.service.impl.EntityGenerator;
@@ -12,9 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * 代码生成器基础项
@@ -47,7 +53,7 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 	 * 将生成  DemoDO & DemoDao & DemoService & DemoServiceImpl & DemoController
 	 * @param tableNames 表名数组
 	 */
-	public void genCodeByTableName(String schema, String ...tableNames) {
+	public void genCodeByTableName(String schema, List<String> tableNames) {
 		for (String tableName : tableNames) {
 			genCodeByTableName(schema,tableName);
 		}
@@ -77,7 +83,32 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 		new ControllerGenerator().genCode(tableName, customName);
 	}
 
+	/**
+	 * 根据数据库生成该库所有的表结构代码
+	 * @param schema
+	 */
+	public void genCodeAllTableBySchema(String schema) {
+		List<TableBean> tableBeans = getTableBeans(schema);
+		if (tableBeans == null || tableBeans.isEmpty()){
+			return;
+		}
+		List<String> tableNames = tableBeans.stream().map(e -> e.getTableName()).collect(Collectors.toList());
+		genCodeByTableName(schema,tableNames);
+	}
 
+	private List<TableBean> getTableBeans(String schema){
+		// 获取所有的表信息
+		List<TableBean> tableBaens = null;
+		try {
+			tableBaens = CodeGenDao.getInstance().selectTables(schema);
+		} catch (SQLException e) {
+			logger.error("获取数据库表失败！！！");
+		}
+		if (tableBaens == null){
+			return new ArrayList<>();
+		}
+		return tableBaens;
+	}
 	/**
 	 * Freemarker 模板环境配置
 	 * @return
@@ -155,7 +186,7 @@ public class CodeGeneratorManager extends CodeGeneratorConfig {
 
 	public static void main(String[] args) {
 		CodeGeneratorManager codeGeneratorManager = new CodeGeneratorManager();
-		codeGeneratorManager.genCodeByTableName("account2","account_0");
+		codeGeneratorManager.genCodeAllTableBySchema("test");
 
 	}
 }
