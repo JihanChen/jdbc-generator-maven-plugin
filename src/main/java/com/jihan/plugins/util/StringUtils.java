@@ -89,4 +89,16 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * 将第一个下划线前的数据去掉去掉
+	 * @param str
+	 * @return 去掉第一个下划线的数据
+	 */
+	public static String discardFirstUnderline(String str) {
+		return str.substring(str.indexOf("_")+1, str.length());
+
+	}
+
+
 }
